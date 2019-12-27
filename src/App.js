@@ -1,9 +1,12 @@
 import React from "react";
-import Counter from "./state/Counter";
+import TheDate from "./statePractice/TheDate";
+import Counter from "./statePractice/Counter";
 
 class App extends React.Component {
   render() {
-    return <Counter />;
+    return (
+      <div> <Counter step={5} /> </div>
+    )
   }
 }
 
