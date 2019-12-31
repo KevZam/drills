@@ -8,25 +8,29 @@ class RouletteGun extends React.Component {
   };
 
   handleEvent = () => {
-    this.setState({ spinningTheChamber: true });
-    this.interval = setInterval(() => {
-      const randNum = Math.round(Math.random() * 7) + 1;
-      this.setState({ chamber: randNum, spinningTheChamber: false });
+    let newWord = "";
+    this.setState({
+      spinningTheChamber: true,
+      word: "spinning the chamber and pulling the trigger!..."
+    });
+    let timeout = setTimeout(() => {
+      const randNum = Math.ceil(Math.random() * 8);
+      if (randNum === this.props.bulletInChamber) {
+        newWord = "BANG!!!";
+      } else {
+        newWord = "You're safe...";
+      }
+
+      this.setState({
+        chamber: randNum,
+        spinningTheChamber: false,
+        word: newWord
+      });
     }, 2000);
   };
 
   updateWorded() {}
   render() {
-    console.log("chamber value is " + this.state.chamber);
-    console.log("bulletInChamber value is " + this.props.bulletInChamber);
-    console.log("word is " + this.state.word);
-    if (this.state.spinningTheChamber === true) {
-      console.log(" spinning is true");
-      this.state.word = "spinning the chamber and pulling the trigger!...";
-    } else if (this.state.chamber === this.state.bulletInChamber) {
-      this.state.word = "BANG!!!!";
-    }
-
     return (
       <div>
         <p>{this.state.word}</p>
@@ -34,7 +38,6 @@ class RouletteGun extends React.Component {
       </div>
     );
   }
-
   static defaultProps = {
     bulletInChamber: 8
   };
